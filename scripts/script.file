@@ -1,0 +1,8 @@
+nova boot --meta host_addr='' --meta proxy_port='' --meta host_addr='' --meta report_online='' --file /etc/rc.local=proxy_rc.local --file /home/ProvisionProxy.py=ProvisionProxy.py
+nova boot --meta hostname='' --meta proxy_address='' --file /etc/rc.local=vm_rc.local --file /home/ProvisionVM.sh=ProvisionVM.sh....
+nova boot "provision_client1" --flavor m1.tiny --image 58c47f1b-02ed-4de1-a081-1ecf8afc54fd --nic net-id="e3fffbcf-7e75-4187-b5e9-daa1a5e3bd74" --meta hostname="provison_client1" --meta proxy_addr="10.1.0.14:8821" --file /etc/rc.local=vm_rc.local --file /home/ProvisionVM.sh=ProvisionVM.sh
+nova boot "provision_proxy" --flavor m1.tiny --image 58c47f1b-02ed-4de1-a081-1ecf8afc54fd --nic net-id="e3fffbcf-7e75-4187-b5e9-daa1a5e3bd74" --meta host_addr="192.168.11.130:8888" --meta proxy_port="8821" --meta report_online="True" --file /etc/rc.local=proxy_rc.local --file /home/ProvisionProxy.py=ProvisionProxy.py
+nova boot "provision_proxy" --flavor m1.tiny --image 58c47f1b-02ed-4de1-a081-1ecf8afc54fd --nic net-id="7e98d114-3337-4502-aa92-9e1631400a33" 
+nova boot "test_test" --flavor m1.tiny --image 58c47f1b-02ed-4de1-a081-1ecf8afc54fd --nic net-id="ef63a1df-d6aa-4c7d-9aa0-b71a59a43d3a" --availability_zone xxx:a-compute01
+python ProvisionProxy.py --debug --host-addr 127.0.0.1:3333 --proxy-port 8821 --polling-interval 1 --http-timeout 2
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" "167.12.1.221:8675?hostname=$hostname&ip=$myip&status=boot"
